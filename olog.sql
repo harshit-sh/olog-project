@@ -1,0 +1,1560 @@
+-- Created 8 December 2016, 5:58:50 PM IST
+-- Created using EASIK, http://mathcs.mta.ca/research/rosebrugh/Easik/
+-- All sorts of things won't work properly without InnoDB tables:
+SET SESSION sql_mode='NO_ENGINE_SUBSTITUTION';
+DROP DATABASE IF EXISTS Olog_for_Road_Transport;
+CREATE DATABASE IF NOT EXISTS Olog_for_Road_Transport;
+USE Olog_for_Road_Transport;
+CREATE TABLE A_Person (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT
+) ENGINE=InnoDB;
+CREATE TABLE A_Driver (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_59 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (isA_59) REFERENCES A_Person (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE A_Mode (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT
+) ENGINE=InnoDB;
+CREATE TABLE A_Conductor (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_60 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (isA_60) REFERENCES A_Person (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE a_Float (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT
+) ENGINE=InnoDB;
+CREATE TABLE a_fare_F (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_13 INTEGER NOT NULL,
+   FOREIGN KEY (isA_13) REFERENCES a_Float (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE A_Float_1 (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT
+) ENGINE=InnoDB;
+CREATE TABLE A_Latitude (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_66 INTEGER NOT NULL,
+   FOREIGN KEY (isA_66) REFERENCES A_Float_1 (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE A_Longitude (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_67 INTEGER NOT NULL,
+   FOREIGN KEY (isA_67) REFERENCES A_Float_1 (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE A_Path (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT
+) ENGINE=InnoDB;
+CREATE TABLE A_pair_lat_long_ (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	`long` INTEGER NOT NULL,
+   FOREIGN KEY (`long`) REFERENCES A_Longitude (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	lat INTEGER NOT NULL,
+   FOREIGN KEY (lat) REFERENCES A_Latitude (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE A_Track (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT
+) ENGINE=InnoDB;
+CREATE TABLE An_above_the_ground_Way (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT
+) ENGINE=InnoDB;
+CREATE TABLE a_float_value_0 (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_12 INTEGER NOT NULL,
+   FOREIGN KEY (isA_12) REFERENCES a_Float (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE An_on_the_ground_Way (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT
+) ENGINE=InnoDB;
+CREATE TABLE A_Passeneger (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_61 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (isA_61) REFERENCES A_Person (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE An_Intermediary_Stop (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT
+) ENGINE=InnoDB;
+CREATE TABLE A_Road (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT
+) ENGINE=InnoDB;
+CREATE TABLE A_Locarion (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_65 INTEGER NOT NULL,
+   FOREIGN KEY (isA_65) REFERENCES A_pair_lat_long_ (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE a_Fare_Fs (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_11 INTEGER NOT NULL,
+   FOREIGN KEY (isA_11) REFERENCES a_Float (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE A_SubJourney (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	hasA_0 INTEGER NOT NULL,
+   FOREIGN KEY (hasA_0) REFERENCES a_Fare_Fs (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	has_a INTEGER NOT NULL,
+   FOREIGN KEY (has_a) REFERENCES A_Mode (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE A_Char (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT
+) ENGINE=InnoDB;
+CREATE TABLE A_Direction (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_58 INTEGER NOT NULL,
+   FOREIGN KEY (isA_58) REFERENCES A_Char (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE A_Date_Time (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT
+) ENGINE=InnoDB;
+CREATE TABLE A_Timestamp (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_57 INTEGER NOT NULL,
+   FOREIGN KEY (isA_57) REFERENCES A_Date_Time (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE A_Departure_Time (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_56 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (isA_56) REFERENCES A_Timestamp (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE a_Stop (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT
+) ENGINE=InnoDB;
+CREATE TABLE a_destination_D (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_24 INTEGER NOT NULL,
+   FOREIGN KEY (isA_24) REFERENCES a_Stop (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE a_destination_Df (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_20 INTEGER NOT NULL,
+   FOREIGN KEY (isA_20) REFERENCES a_Stop (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE a_destination_Ds (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_19 INTEGER NOT NULL,
+   FOREIGN KEY (isA_19) REFERENCES a_Stop (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE a_destination_Dp (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_15 INTEGER NOT NULL,
+   FOREIGN KEY (isA_15) REFERENCES a_Stop (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE an_Origin_Ol (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_22 INTEGER NOT NULL,
+   FOREIGN KEY (isA_22) REFERENCES a_Stop (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE an_Origin_Oc (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_16 INTEGER NOT NULL,
+   FOREIGN KEY (isA_16) REFERENCES a_Stop (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	isSameAs INTEGER NOT NULL,
+   FOREIGN KEY (isSameAs) REFERENCES a_destination_Dp (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE an_origin_O (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_25 INTEGER NOT NULL,
+   FOREIGN KEY (isA_25) REFERENCES a_Stop (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE an_Origin_Of (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isSameAs_3 INTEGER NOT NULL,
+   FOREIGN KEY (isSameAs_3) REFERENCES an_origin_O (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	isA_21 INTEGER NOT NULL,
+   FOREIGN KEY (isA_21) REFERENCES a_Stop (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE the_first_sub_journey (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_7 INTEGER NOT NULL,
+   FOREIGN KEY (isA_7) REFERENCES A_SubJourney (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	hasA_11 INTEGER NOT NULL,
+   FOREIGN KEY (hasA_11) REFERENCES a_destination_Df (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	hasA_10 INTEGER NOT NULL,
+   FOREIGN KEY (hasA_10) REFERENCES an_Origin_Of (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE an_origin_Op (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_14 INTEGER NOT NULL,
+   FOREIGN KEY (isA_14) REFERENCES a_Stop (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE a_predecessor_sub_journey (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_1 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (isA_1) REFERENCES A_SubJourney (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	hasA_4 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (hasA_4) REFERENCES an_origin_Op (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	hasA_5 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (hasA_5) REFERENCES a_destination_Dp (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE An_Arrival_Time (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_55 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (isA_55) REFERENCES A_Timestamp (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE A_Set_of_tuples_Si_Ai_Di_ (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	Di INTEGER NOT NULL,
+   FOREIGN KEY (Di) REFERENCES A_Departure_Time (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	Si_1 INTEGER NOT NULL,
+   FOREIGN KEY (Si_1) REFERENCES a_Stop (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	Ai INTEGER NOT NULL,
+   FOREIGN KEY (Ai) REFERENCES An_Arrival_Time (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE A_Schedule (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	hasA_18 INTEGER NOT NULL,
+   FOREIGN KEY (hasA_18) REFERENCES A_Set_of_tuples_Si_Ai_Di_ (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE A_Terminal_Stop (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT
+) ENGINE=InnoDB;
+CREATE TABLE a_Source (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_53 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (isA_53) REFERENCES A_Terminal_Stop (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE A_Destination (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_54 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (isA_54) REFERENCES A_Terminal_Stop (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE Passengers_A_Set_Pi_Pn_ (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	Pi INTEGER NOT NULL,
+   FOREIGN KEY (Pi) REFERENCES A_Passeneger (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE A_Vehicle (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	Vehicle_ID VARCHAR(255),
+	Capacity INTEGER,
+	Speed REAL,
+	hasA_31 INTEGER NOT NULL,
+   FOREIGN KEY (hasA_31) REFERENCES Passengers_A_Set_Pi_Pn_ (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	hasA_32 INTEGER NOT NULL,
+   FOREIGN KEY (hasA_32) REFERENCES A_Driver (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE a_4_Wheeler (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_31 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (isA_31) REFERENCES A_Vehicle (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE a_2_Wheeler (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_29 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (isA_29) REFERENCES A_Vehicle (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE an_8_Wheeler (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_33 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (isA_33) REFERENCES A_Vehicle (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE a_3_Wheeler (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_30 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (isA_30) REFERENCES A_Vehicle (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE a_Tempo (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_38 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (isA_38) REFERENCES a_3_Wheeler (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE a_car (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_41 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (isA_41) REFERENCES a_4_Wheeler (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE a_personal_car (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_46 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (isA_46) REFERENCES a_car (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE a_cab (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_45 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (isA_45) REFERENCES a_car (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE a_rental_car (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_47 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (isA_47) REFERENCES a_car (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE a_carriage (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_44 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (isA_44) REFERENCES a_4_Wheeler (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE a_Lorry (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_51 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (isA_51) REFERENCES an_8_Wheeler (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE an_auto_rickshaw_rickshaw (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_39 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (isA_39) REFERENCES a_3_Wheeler (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE a_6_Wheeler (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_32 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (isA_32) REFERENCES A_Vehicle (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE a_Bus (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_48 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (isA_48) REFERENCES a_6_Wheeler (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE a_cart (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_42 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (isA_42) REFERENCES a_4_Wheeler (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE a_van (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_43 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (isA_43) REFERENCES a_4_Wheeler (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE a_Bike (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_35 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (isA_35) REFERENCES a_2_Wheeler (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE A_set_V_R_ (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	Vi INTEGER NOT NULL,
+   FOREIGN KEY (Vi) REFERENCES A_Vehicle (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	Ri INTEGER NOT NULL,
+   FOREIGN KEY (Ri) REFERENCES A_Road (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE A_Vehicular_Mode (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_6 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (isA_6) REFERENCES A_Mode (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	hasA_15 INTEGER NOT NULL,
+   FOREIGN KEY (hasA_15) REFERENCES A_set_V_R_ (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE a_Scooter (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_37 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (isA_37) REFERENCES a_2_Wheeler (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE an_e_rickshaw (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_40 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (isA_40) REFERENCES a_3_Wheeler (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE a_truck (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_52 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (isA_52) REFERENCES an_8_Wheeler (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE a_private_bus (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_50 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (isA_50) REFERENCES a_Bus (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE a_destination_Dc (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_17 INTEGER NOT NULL,
+   FOREIGN KEY (isA_17) REFERENCES a_Stop (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE a_current_sub_journey (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_2 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (isA_2) REFERENCES A_SubJourney (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	hasA_6 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (hasA_6) REFERENCES an_Origin_Oc (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	hasA_7 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (hasA_7) REFERENCES a_destination_Dc (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	follows INTEGER,
+   FOREIGN KEY (follows) REFERENCES a_predecessor_sub_journey (id) ON DELETE SET NULL ON UPDATE SET NULL
+) ENGINE=InnoDB;
+CREATE TABLE an_origin_Os (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isSameAs_1 INTEGER NOT NULL,
+   FOREIGN KEY (isSameAs_1) REFERENCES a_destination_Dc (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	isA_18 INTEGER NOT NULL,
+   FOREIGN KEY (isA_18) REFERENCES a_Stop (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE a_successor_sub_journey (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	hasA_8 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (hasA_8) REFERENCES an_origin_Os (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	isA_3 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (isA_3) REFERENCES A_SubJourney (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	hasA_9 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (hasA_9) REFERENCES a_destination_Ds (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	follows1 INTEGER NOT NULL,
+   FOREIGN KEY (follows1) REFERENCES a_current_sub_journey (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE a_destination_Dl (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isSameAs_4 INTEGER NOT NULL,
+   FOREIGN KEY (isSameAs_4) REFERENCES a_destination_D (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	isA_23 INTEGER NOT NULL,
+   FOREIGN KEY (isA_23) REFERENCES a_Stop (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE the_last_sub_journey (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_8 INTEGER NOT NULL,
+   FOREIGN KEY (isA_8) REFERENCES A_SubJourney (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	hasA_13 INTEGER NOT NULL,
+   FOREIGN KEY (hasA_13) REFERENCES a_destination_Dl (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	hasA_12 INTEGER NOT NULL,
+   FOREIGN KEY (hasA_12) REFERENCES an_Origin_Ol (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE a_set_F_S1_Sn_L_ (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	L INTEGER NOT NULL,
+   FOREIGN KEY (L) REFERENCES the_last_sub_journey (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	F INTEGER NOT NULL,
+   FOREIGN KEY (F) REFERENCES the_first_sub_journey (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	Si INTEGER NOT NULL,
+   FOREIGN KEY (Si) REFERENCES a_current_sub_journey (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE a_Journey (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	consists_of INTEGER NOT NULL,
+   FOREIGN KEY (consists_of) REFERENCES a_set_F_S1_Sn_L_ (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	hasA_1 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (hasA_1) REFERENCES an_origin_O (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	hasA_2 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (hasA_2) REFERENCES a_destination_D (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	hasA_3 INTEGER NOT NULL,
+   FOREIGN KEY (hasA_3) REFERENCES a_fare_F (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE A_Traveller (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	goes_on INTEGER NOT NULL,
+   FOREIGN KEY (goes_on) REFERENCES a_Journey (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	hasA_33 INTEGER NOT NULL,
+   FOREIGN KEY (hasA_33) REFERENCES A_Locarion (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	isA_62 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (isA_62) REFERENCES A_Person (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE no_Fare (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_9 INTEGER NOT NULL,
+   FOREIGN KEY (isA_9) REFERENCES a_float_value_0 (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	isA_10 INTEGER NOT NULL,
+   FOREIGN KEY (isA_10) REFERENCES a_Fare_Fs (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE A_Pedestrian_Mode (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	has_1 INTEGER NOT NULL,
+   FOREIGN KEY (has_1) REFERENCES no_Fare (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	isA_4 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (isA_4) REFERENCES A_Mode (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	hasA_14 INTEGER NOT NULL,
+   FOREIGN KEY (hasA_14) REFERENCES A_Path (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE a_Cycle_Bicycle (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_34 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (isA_34) REFERENCES a_2_Wheeler (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE A_Pedestrian (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_64 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (isA_64) REFERENCES A_Person (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE a_Motorcycle_Motorbike (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_36 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (isA_36) REFERENCES a_2_Wheeler (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE A_Set_S_I1_In_D_ (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	Ii INTEGER NOT NULL,
+   FOREIGN KEY (Ii) REFERENCES An_Intermediary_Stop (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	S INTEGER NOT NULL,
+   FOREIGN KEY (S) REFERENCES a_Source (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	D INTEGER NOT NULL,
+   FOREIGN KEY (D) REFERENCES A_Destination (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE A_Route (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	hasA_19 INTEGER NOT NULL,
+   FOREIGN KEY (hasA_19) REFERENCES A_Direction (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	hasA_17 INTEGER NOT NULL,
+   FOREIGN KEY (hasA_17) REFERENCES A_Set_S_I1_In_D_ (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	hasA_29 INTEGER NOT NULL,
+   FOREIGN KEY (hasA_29) REFERENCES a_Source (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	hasA_30 INTEGER NOT NULL,
+   FOREIGN KEY (hasA_30) REFERENCES A_Destination (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE A_Public_Bus (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	isA_49 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (isA_49) REFERENCES a_Bus (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	hasA_28 INTEGER NOT NULL,
+   FOREIGN KEY (hasA_28) REFERENCES A_Conductor (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	hasA_22 INTEGER NOT NULL,
+   FOREIGN KEY (hasA_22) REFERENCES A_Schedule (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	hasA_23 INTEGER NOT NULL,
+   FOREIGN KEY (hasA_23) REFERENCES A_Route (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE A_Train (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	hasA_20 INTEGER NOT NULL,
+   FOREIGN KEY (hasA_20) REFERENCES A_Schedule (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	isA_63 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (isA_63) REFERENCES A_Vehicle (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	hasA_21 INTEGER NOT NULL,
+   FOREIGN KEY (hasA_21) REFERENCES A_Route (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE A_set_Tr_T_ (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	Tr INTEGER NOT NULL,
+   FOREIGN KEY (Tr) REFERENCES A_Track (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	T INTEGER NOT NULL,
+   FOREIGN KEY (T) REFERENCES A_Train (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE A_Metro_Mode (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	hasA_16 INTEGER NOT NULL,
+   FOREIGN KEY (hasA_16) REFERENCES A_set_Tr_T_ (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	isA_5 INTEGER NOT NULL UNIQUE,
+   FOREIGN KEY (isA_5) REFERENCES A_Mode (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE An_Underground_Way (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT
+) ENGINE=InnoDB;
+DELIMITER $$
+ALTER TABLE no_Fare ADD UNIQUE pullbackConstraint1UniqueIndex (isA_9, isA_10);$$
+CREATE PROCEDURE pullbackConstraint1Insertno_Fare(_newPBid INTEGER) BEGIN
+   DECLARE _pathId0, _pathId1 INTEGER;
+       SELECT a_Float.id INTO _pathId0
+           FROM no_Fare JOIN a_float_value_0 ON no_Fare.isA_9 = a_float_value_0.id JOIN a_Float ON a_float_value_0.isA_12 = a_Float.id
+           WHERE no_Fare.id = _newPBid;
+       SELECT a_Float.id INTO _pathId1
+           FROM no_Fare JOIN a_Fare_Fs ON no_Fare.isA_10 = a_Fare_Fs.id JOIN a_Float ON a_Fare_Fs.isA_11 = a_Float.id
+           WHERE no_Fare.id = _newPBid;
+   IF NOT (_pathId0 <=> _pathId1) THEN
+               CALL constraint_failure('Invalid entry in pullback constraint.');
+       END IF;
+END$$
+CREATE PROCEDURE pullbackConstraint1Inserta_float_value_0(_newId INTEGER) BEGIN
+	IF (SELECT COUNT(*) FROM (a_float_value_0, a_Fare_Fs) JOIN a_Float ON a_float_value_0.isA_12 = a_Float.id AND a_Fare_Fs.isA_11 = a_Float.id WHERE a_float_value_0.id = _newId) > 0 THEN
+		INSERT INTO no_Fare (isA_9, isA_10) SELECT a_float_value_0.id, a_Fare_Fs.id FROM (a_float_value_0, a_Fare_Fs) JOIN a_Float ON a_float_value_0.isA_12 = a_Float.id AND a_Fare_Fs.isA_11 = a_Float.id WHERE a_float_value_0.id = _newId;
+	END IF;
+END$$
+CREATE PROCEDURE pullbackConstraint1Inserta_Fare_Fs(_newId INTEGER) BEGIN
+	IF (SELECT COUNT(*) FROM (a_Fare_Fs, a_float_value_0) JOIN a_Float ON a_Fare_Fs.isA_11 = a_Float.id AND a_float_value_0.isA_12 = a_Float.id WHERE a_Fare_Fs.id = _newId) > 0 THEN
+		INSERT INTO no_Fare (isA_10, isA_9) SELECT a_Fare_Fs.id, a_float_value_0.id FROM (a_float_value_0, a_Fare_Fs) JOIN a_Float ON a_Fare_Fs.isA_11 = a_Float.id AND a_float_value_0.isA_12 = a_Float.id WHERE a_Fare_Fs.id = _newId;
+	END IF;
+END$$
+CREATE PROCEDURE pullbackConstraint1Deleteno_Fare(toDeleteId INTEGER) BEGIN
+   DELETE a_Float FROM no_Fare JOIN (a_float_value_0, a_Fare_Fs) ON no_Fare.isA_9 = a_float_value_0.id AND no_Fare.isA_10 = a_Fare_Fs.id JOIN a_Float ON a_float_value_0.isA_12 = a_Float.id AND a_Fare_Fs.isA_11 = a_Float.id
+           WHERE no_Fare.id = toDeleteId;
+END$$
+DELIMITER ;
+DELIMITER $$
+CREATE PROCEDURE commutativeDiagram2(_path1fk INTEGER, _path2fk INTEGER) BEGIN
+       DECLARE _cdTarget1, _cdTarget2 INTEGER;
+    SELECT a_predecessor_sub_journey.hasA_5 INTO _cdTarget1 FROM a_predecessor_sub_journey WHERE a_predecessor_sub_journey.id = _path1fk;
+    SELECT an_Origin_Oc.isSameAs INTO _cdTarget2 FROM an_Origin_Oc WHERE an_Origin_Oc.id = _path2fk;
+       IF
+               NOT (_cdTarget1 <=> _cdTarget2)
+       THEN CALL constraint_failure('Commutative diagram constraint failure.');
+       END IF;
+END$$
+DELIMITER ;
+DELIMITER $$
+CREATE PROCEDURE commutativeDiagram3(_path1fk INTEGER, _path2fk INTEGER) BEGIN
+       DECLARE _cdTarget1, _cdTarget2 INTEGER;
+    SELECT a_current_sub_journey.hasA_7 INTO _cdTarget1 FROM a_current_sub_journey WHERE a_current_sub_journey.id = _path1fk;
+    SELECT an_origin_Os.isSameAs_1 INTO _cdTarget2 FROM an_origin_Os WHERE an_origin_Os.id = _path2fk;
+       IF
+               NOT (_cdTarget1 <=> _cdTarget2)
+       THEN CALL constraint_failure('Commutative diagram constraint failure.');
+       END IF;
+END$$
+DELIMITER ;
+DELIMITER $$
+CREATE PROCEDURE commutativeDiagram4(_path1fk INTEGER, _path2fk INTEGER) BEGIN
+       DECLARE _cdTarget1, _cdTarget2 INTEGER;
+    SELECT a_destination_Dp.isA_15 INTO _cdTarget1 FROM a_destination_Dp WHERE a_destination_Dp.id = _path1fk;
+    SELECT _path2fk INTO _cdTarget2;
+       IF
+               NOT (_cdTarget1 <=> _cdTarget2)
+       THEN CALL constraint_failure('Commutative diagram constraint failure.');
+       END IF;
+END$$
+DELIMITER ;
+DELIMITER $$
+CREATE PROCEDURE commutativeDiagram5(_path1fk INTEGER, _path2fk INTEGER) BEGIN
+       DECLARE _cdTarget1, _cdTarget2 INTEGER;
+    SELECT a_destination_Dc.isA_17 INTO _cdTarget1 FROM a_destination_Dc WHERE a_destination_Dc.id = _path1fk;
+    SELECT _path2fk INTO _cdTarget2;
+       IF
+               NOT (_cdTarget1 <=> _cdTarget2)
+       THEN CALL constraint_failure('Commutative diagram constraint failure.');
+       END IF;
+END$$
+DELIMITER ;
+DELIMITER $$
+CREATE PROCEDURE commutativeDiagram6(_path1fk INTEGER, _path2fk INTEGER) BEGIN
+       DECLARE _cdTarget1, _cdTarget2 INTEGER;
+    SELECT a_destination_D.isA_24 INTO _cdTarget1 FROM a_destination_D WHERE a_destination_D.id = _path1fk;
+    SELECT _path2fk INTO _cdTarget2;
+       IF
+               NOT (_cdTarget1 <=> _cdTarget2)
+       THEN CALL constraint_failure('Commutative diagram constraint failure.');
+       END IF;
+END$$
+DELIMITER ;
+DELIMITER $$
+CREATE PROCEDURE commutativeDiagram7(_path1fk INTEGER, _path2fk INTEGER) BEGIN
+       DECLARE _cdTarget1, _cdTarget2 INTEGER;
+    SELECT an_origin_O.isA_25 INTO _cdTarget1 FROM an_origin_O WHERE an_origin_O.id = _path1fk;
+    SELECT _path2fk INTO _cdTarget2;
+       IF
+               NOT (_cdTarget1 <=> _cdTarget2)
+       THEN CALL constraint_failure('Commutative diagram constraint failure.');
+       END IF;
+END$$
+DELIMITER ;
+DELIMITER $$
+CREATE PROCEDURE sumConstraint8a_predecessor_sub_journeyDelete(_deleteFK INTEGER) BEGIN
+   DELETE FROM A_SubJourney WHERE A_SubJourney.id = _deleteFK;
+END$$
+CREATE PROCEDURE sumConstraint8a_current_sub_journeyDelete(_deleteFK INTEGER) BEGIN
+   DELETE FROM A_SubJourney WHERE A_SubJourney.id = _deleteFK;
+END$$
+CREATE PROCEDURE sumConstraint8a_successor_sub_journeyDelete(_deleteFK INTEGER) BEGIN
+   DELETE FROM A_SubJourney WHERE A_SubJourney.id = _deleteFK;
+END$$
+DELIMITER ;
+DELIMITER $$
+CREATE PROCEDURE sumConstraint9A_Pedestrian_ModeDelete(_deleteFK INTEGER) BEGIN
+   DELETE FROM A_Mode WHERE A_Mode.id = _deleteFK;
+END$$
+CREATE PROCEDURE sumConstraint9A_Metro_ModeDelete(_deleteFK INTEGER) BEGIN
+   DELETE FROM A_Mode WHERE A_Mode.id = _deleteFK;
+END$$
+CREATE PROCEDURE sumConstraint9A_Vehicular_ModeDelete(_deleteFK INTEGER) BEGIN
+   DELETE FROM A_Mode WHERE A_Mode.id = _deleteFK;
+END$$
+DELIMITER ;
+DELIMITER $$
+CREATE PROCEDURE sumConstraint10a_LorryDelete(_deleteFK INTEGER) BEGIN
+   DELETE FROM an_8_Wheeler WHERE an_8_Wheeler.id = _deleteFK;
+END$$
+CREATE PROCEDURE sumConstraint10a_truckDelete(_deleteFK INTEGER) BEGIN
+   DELETE FROM an_8_Wheeler WHERE an_8_Wheeler.id = _deleteFK;
+END$$
+DELIMITER ;
+DELIMITER $$
+CREATE PROCEDURE sumConstraint11A_Public_BusDelete(_deleteFK INTEGER) BEGIN
+   DELETE FROM a_Bus WHERE a_Bus.id = _deleteFK;
+END$$
+CREATE PROCEDURE sumConstraint11a_private_busDelete(_deleteFK INTEGER) BEGIN
+   DELETE FROM a_Bus WHERE a_Bus.id = _deleteFK;
+END$$
+DELIMITER ;
+DELIMITER $$
+CREATE PROCEDURE sumConstraint12a_carriageDelete(_deleteFK INTEGER) BEGIN
+   DELETE FROM a_4_Wheeler WHERE a_4_Wheeler.id = _deleteFK;
+END$$
+CREATE PROCEDURE sumConstraint12a_vanDelete(_deleteFK INTEGER) BEGIN
+   DELETE FROM a_4_Wheeler WHERE a_4_Wheeler.id = _deleteFK;
+END$$
+CREATE PROCEDURE sumConstraint12a_cartDelete(_deleteFK INTEGER) BEGIN
+   DELETE FROM a_4_Wheeler WHERE a_4_Wheeler.id = _deleteFK;
+END$$
+CREATE PROCEDURE sumConstraint12a_carDelete(_deleteFK INTEGER) BEGIN
+   DELETE FROM a_4_Wheeler WHERE a_4_Wheeler.id = _deleteFK;
+END$$
+DELIMITER ;
+DELIMITER $$
+CREATE PROCEDURE sumConstraint13a_cabDelete(_deleteFK INTEGER) BEGIN
+   DELETE FROM a_car WHERE a_car.id = _deleteFK;
+END$$
+CREATE PROCEDURE sumConstraint13a_personal_carDelete(_deleteFK INTEGER) BEGIN
+   DELETE FROM a_car WHERE a_car.id = _deleteFK;
+END$$
+CREATE PROCEDURE sumConstraint13a_rental_carDelete(_deleteFK INTEGER) BEGIN
+   DELETE FROM a_car WHERE a_car.id = _deleteFK;
+END$$
+DELIMITER ;
+DELIMITER $$
+CREATE PROCEDURE sumConstraint14a_TempoDelete(_deleteFK INTEGER) BEGIN
+   DELETE FROM a_3_Wheeler WHERE a_3_Wheeler.id = _deleteFK;
+END$$
+CREATE PROCEDURE sumConstraint14an_e_rickshawDelete(_deleteFK INTEGER) BEGIN
+   DELETE FROM a_3_Wheeler WHERE a_3_Wheeler.id = _deleteFK;
+END$$
+CREATE PROCEDURE sumConstraint14an_auto_rickshaw_rickshawDelete(_deleteFK INTEGER) BEGIN
+   DELETE FROM a_3_Wheeler WHERE a_3_Wheeler.id = _deleteFK;
+END$$
+DELIMITER ;
+DELIMITER $$
+CREATE PROCEDURE sumConstraint15a_Cycle_BicycleDelete(_deleteFK INTEGER) BEGIN
+   DELETE FROM a_2_Wheeler WHERE a_2_Wheeler.id = _deleteFK;
+END$$
+CREATE PROCEDURE sumConstraint15a_BikeDelete(_deleteFK INTEGER) BEGIN
+   DELETE FROM a_2_Wheeler WHERE a_2_Wheeler.id = _deleteFK;
+END$$
+CREATE PROCEDURE sumConstraint15a_Motorcycle_MotorbikeDelete(_deleteFK INTEGER) BEGIN
+   DELETE FROM a_2_Wheeler WHERE a_2_Wheeler.id = _deleteFK;
+END$$
+CREATE PROCEDURE sumConstraint15a_ScooterDelete(_deleteFK INTEGER) BEGIN
+   DELETE FROM a_2_Wheeler WHERE a_2_Wheeler.id = _deleteFK;
+END$$
+DELIMITER ;
+DELIMITER $$
+CREATE PROCEDURE productConstraint16Delete(id INTEGER) BEGIN
+   DELETE A_Road FROM A_set_V_R_ JOIN A_Road ON A_set_V_R_.Ri = A_Road.id
+           WHERE A_set_V_R_.id = id;
+   DELETE A_Vehicle FROM A_set_V_R_ JOIN A_Vehicle ON A_set_V_R_.Vi = A_Vehicle.id
+           WHERE A_set_V_R_.id = id;
+END$$
+CREATE PROCEDURE productConstraint16InsertA_Road(id INTEGER) BEGIN
+ DECLARE _lastId INTEGER;
+       IF (SELECT 1 FROM A_Vehicle LIMIT 1) = 1 THEN
+           SET _lastId = id;
+               INSERT INTO A_set_V_R_ (Ri, Vi) SELECT A_Road.id, A_Vehicle.id FROM A_Road CROSS JOIN A_Vehicle WHERE A_Road.id = _lastId;
+   END IF;
+END$$
+CREATE PROCEDURE productConstraint16InsertA_Vehicle(id INTEGER) BEGIN
+ DECLARE _lastId INTEGER;
+       IF (SELECT 1 FROM A_Road LIMIT 1) = 1 THEN
+           SET _lastId = id;
+               INSERT INTO A_set_V_R_ (Ri, Vi) SELECT A_Road.id, A_Vehicle.id FROM A_Road CROSS JOIN A_Vehicle WHERE A_Vehicle.id = _lastId;
+   END IF;
+END$$
+DELIMITER ;
+DELIMITER $$
+CREATE PROCEDURE productConstraint17Delete(id INTEGER) BEGIN
+   DELETE A_Track FROM A_set_Tr_T_ JOIN A_Track ON A_set_Tr_T_.Tr = A_Track.id
+           WHERE A_set_Tr_T_.id = id;
+   DELETE A_Train FROM A_set_Tr_T_ JOIN A_Train ON A_set_Tr_T_.T = A_Train.id
+           WHERE A_set_Tr_T_.id = id;
+END$$
+CREATE PROCEDURE productConstraint17InsertA_Track(id INTEGER) BEGIN
+ DECLARE _lastId INTEGER;
+       IF (SELECT 1 FROM A_Train LIMIT 1) = 1 THEN
+           SET _lastId = id;
+               INSERT INTO A_set_Tr_T_ (Tr, T) SELECT A_Track.id, A_Train.id FROM A_Track CROSS JOIN A_Train WHERE A_Track.id = _lastId;
+   END IF;
+END$$
+CREATE PROCEDURE productConstraint17InsertA_Train(id INTEGER) BEGIN
+ DECLARE _lastId INTEGER;
+       IF (SELECT 1 FROM A_Track LIMIT 1) = 1 THEN
+           SET _lastId = id;
+               INSERT INTO A_set_Tr_T_ (Tr, T) SELECT A_Track.id, A_Train.id FROM A_Track CROSS JOIN A_Train WHERE A_Train.id = _lastId;
+   END IF;
+END$$
+DELIMITER ;
+DELIMITER $$
+CREATE PROCEDURE productConstraint18Delete(id INTEGER) BEGIN
+   DELETE a_Source FROM A_Set_S_I1_In_D_ JOIN a_Source ON A_Set_S_I1_In_D_.S = a_Source.id
+           WHERE A_Set_S_I1_In_D_.id = id;
+   DELETE An_Intermediary_Stop FROM A_Set_S_I1_In_D_ JOIN An_Intermediary_Stop ON A_Set_S_I1_In_D_.Ii = An_Intermediary_Stop.id
+           WHERE A_Set_S_I1_In_D_.id = id;
+   DELETE A_Destination FROM A_Set_S_I1_In_D_ JOIN A_Destination ON A_Set_S_I1_In_D_.D = A_Destination.id
+           WHERE A_Set_S_I1_In_D_.id = id;
+END$$
+CREATE PROCEDURE productConstraint18Inserta_Source(id INTEGER) BEGIN
+ DECLARE _lastId INTEGER;
+       IF (SELECT 1 FROM An_Intermediary_Stop LIMIT 1) = 1 AND (SELECT 1 FROM A_Destination LIMIT 1) = 1 THEN
+           SET _lastId = id;
+               INSERT INTO A_Set_S_I1_In_D_ (S, Ii, D) SELECT a_Source.id, An_Intermediary_Stop.id, A_Destination.id FROM a_Source CROSS JOIN An_Intermediary_Stop CROSS JOIN A_Destination WHERE a_Source.id = _lastId;
+   END IF;
+END$$
+CREATE PROCEDURE productConstraint18InsertAn_Intermediary_Stop(id INTEGER) BEGIN
+ DECLARE _lastId INTEGER;
+       IF (SELECT 1 FROM a_Source LIMIT 1) = 1 AND (SELECT 1 FROM A_Destination LIMIT 1) = 1 THEN
+           SET _lastId = id;
+               INSERT INTO A_Set_S_I1_In_D_ (S, Ii, D) SELECT a_Source.id, An_Intermediary_Stop.id, A_Destination.id FROM a_Source CROSS JOIN An_Intermediary_Stop CROSS JOIN A_Destination WHERE An_Intermediary_Stop.id = _lastId;
+   END IF;
+END$$
+CREATE PROCEDURE productConstraint18InsertA_Destination(id INTEGER) BEGIN
+ DECLARE _lastId INTEGER;
+       IF (SELECT 1 FROM a_Source LIMIT 1) = 1 AND (SELECT 1 FROM An_Intermediary_Stop LIMIT 1) = 1 THEN
+           SET _lastId = id;
+               INSERT INTO A_Set_S_I1_In_D_ (S, Ii, D) SELECT a_Source.id, An_Intermediary_Stop.id, A_Destination.id FROM a_Source CROSS JOIN An_Intermediary_Stop CROSS JOIN A_Destination WHERE A_Destination.id = _lastId;
+   END IF;
+END$$
+DELIMITER ;
+DELIMITER $$
+CREATE PROCEDURE sumConstraint19a_SourceDelete(_deleteFK INTEGER) BEGIN
+   DELETE FROM A_Terminal_Stop WHERE A_Terminal_Stop.id = _deleteFK;
+END$$
+CREATE PROCEDURE sumConstraint19A_DestinationDelete(_deleteFK INTEGER) BEGIN
+   DELETE FROM A_Terminal_Stop WHERE A_Terminal_Stop.id = _deleteFK;
+END$$
+DELIMITER ;
+DELIMITER $$
+CREATE PROCEDURE sumConstraint20An_Arrival_TimeDelete(_deleteFK INTEGER) BEGIN
+   DELETE FROM A_Timestamp WHERE A_Timestamp.id = _deleteFK;
+END$$
+CREATE PROCEDURE sumConstraint20A_Departure_TimeDelete(_deleteFK INTEGER) BEGIN
+   DELETE FROM A_Timestamp WHERE A_Timestamp.id = _deleteFK;
+END$$
+DELIMITER ;
+DELIMITER $$
+CREATE PROCEDURE productConstraint21Delete(id INTEGER) BEGIN
+   DELETE a_Stop FROM A_Set_of_tuples_Si_Ai_Di_ JOIN a_Stop ON A_Set_of_tuples_Si_Ai_Di_.Si_1 = a_Stop.id
+           WHERE A_Set_of_tuples_Si_Ai_Di_.id = id;
+   DELETE An_Arrival_Time FROM A_Set_of_tuples_Si_Ai_Di_ JOIN An_Arrival_Time ON A_Set_of_tuples_Si_Ai_Di_.Ai = An_Arrival_Time.id
+           WHERE A_Set_of_tuples_Si_Ai_Di_.id = id;
+   DELETE A_Departure_Time FROM A_Set_of_tuples_Si_Ai_Di_ JOIN A_Departure_Time ON A_Set_of_tuples_Si_Ai_Di_.Di = A_Departure_Time.id
+           WHERE A_Set_of_tuples_Si_Ai_Di_.id = id;
+END$$
+CREATE PROCEDURE productConstraint21Inserta_Stop(id INTEGER) BEGIN
+ DECLARE _lastId INTEGER;
+       IF (SELECT 1 FROM An_Arrival_Time LIMIT 1) = 1 AND (SELECT 1 FROM A_Departure_Time LIMIT 1) = 1 THEN
+           SET _lastId = id;
+               INSERT INTO A_Set_of_tuples_Si_Ai_Di_ (Si_1, Ai, Di) SELECT a_Stop.id, An_Arrival_Time.id, A_Departure_Time.id FROM a_Stop CROSS JOIN An_Arrival_Time CROSS JOIN A_Departure_Time WHERE a_Stop.id = _lastId;
+   END IF;
+END$$
+CREATE PROCEDURE productConstraint21InsertAn_Arrival_Time(id INTEGER) BEGIN
+ DECLARE _lastId INTEGER;
+       IF (SELECT 1 FROM a_Stop LIMIT 1) = 1 AND (SELECT 1 FROM A_Departure_Time LIMIT 1) = 1 THEN
+           SET _lastId = id;
+               INSERT INTO A_Set_of_tuples_Si_Ai_Di_ (Si_1, Ai, Di) SELECT a_Stop.id, An_Arrival_Time.id, A_Departure_Time.id FROM a_Stop CROSS JOIN An_Arrival_Time CROSS JOIN A_Departure_Time WHERE An_Arrival_Time.id = _lastId;
+   END IF;
+END$$
+CREATE PROCEDURE productConstraint21InsertA_Departure_Time(id INTEGER) BEGIN
+ DECLARE _lastId INTEGER;
+       IF (SELECT 1 FROM a_Stop LIMIT 1) = 1 AND (SELECT 1 FROM An_Arrival_Time LIMIT 1) = 1 THEN
+           SET _lastId = id;
+               INSERT INTO A_Set_of_tuples_Si_Ai_Di_ (Si_1, Ai, Di) SELECT a_Stop.id, An_Arrival_Time.id, A_Departure_Time.id FROM a_Stop CROSS JOIN An_Arrival_Time CROSS JOIN A_Departure_Time WHERE A_Departure_Time.id = _lastId;
+   END IF;
+END$$
+DELIMITER ;
+DELIMITER $$
+CREATE PROCEDURE commutativeDiagram22(_path1fk INTEGER, _path2fk INTEGER) BEGIN
+       DECLARE _cdTarget1, _cdTarget2 INTEGER;
+    SELECT A_Set_S_I1_In_D_.S INTO _cdTarget1 FROM A_Set_S_I1_In_D_ WHERE A_Set_S_I1_In_D_.id = _path1fk;
+    SELECT _path2fk INTO _cdTarget2;
+       IF
+               NOT (_cdTarget1 <=> _cdTarget2)
+       THEN CALL constraint_failure('Commutative diagram constraint failure.');
+       END IF;
+END$$
+DELIMITER ;
+DELIMITER $$
+CREATE PROCEDURE commutativeDiagram23(_path1fk INTEGER, _path2fk INTEGER) BEGIN
+       DECLARE _cdTarget1, _cdTarget2 INTEGER;
+    SELECT A_Set_S_I1_In_D_.D INTO _cdTarget1 FROM A_Set_S_I1_In_D_ WHERE A_Set_S_I1_In_D_.id = _path1fk;
+    SELECT _path2fk INTO _cdTarget2;
+       IF
+               NOT (_cdTarget1 <=> _cdTarget2)
+       THEN CALL constraint_failure('Commutative diagram constraint failure.');
+       END IF;
+END$$
+DELIMITER ;
+DELIMITER $$
+CREATE PROCEDURE sumConstraint24a_2_WheelerDelete(_deleteFK INTEGER) BEGIN
+   DELETE FROM A_Vehicle WHERE A_Vehicle.id = _deleteFK;
+END$$
+CREATE PROCEDURE sumConstraint24a_3_WheelerDelete(_deleteFK INTEGER) BEGIN
+   DELETE FROM A_Vehicle WHERE A_Vehicle.id = _deleteFK;
+END$$
+CREATE PROCEDURE sumConstraint24a_4_WheelerDelete(_deleteFK INTEGER) BEGIN
+   DELETE FROM A_Vehicle WHERE A_Vehicle.id = _deleteFK;
+END$$
+CREATE PROCEDURE sumConstraint24a_6_WheelerDelete(_deleteFK INTEGER) BEGIN
+   DELETE FROM A_Vehicle WHERE A_Vehicle.id = _deleteFK;
+END$$
+CREATE PROCEDURE sumConstraint24an_8_WheelerDelete(_deleteFK INTEGER) BEGIN
+   DELETE FROM A_Vehicle WHERE A_Vehicle.id = _deleteFK;
+END$$
+CREATE PROCEDURE sumConstraint24A_TrainDelete(_deleteFK INTEGER) BEGIN
+   DELETE FROM A_Vehicle WHERE A_Vehicle.id = _deleteFK;
+END$$
+DELIMITER ;
+DELIMITER $$
+CREATE PROCEDURE sumConstraint25A_ConductorDelete(_deleteFK INTEGER) BEGIN
+   DELETE FROM A_Person WHERE A_Person.id = _deleteFK;
+END$$
+CREATE PROCEDURE sumConstraint25A_PassenegerDelete(_deleteFK INTEGER) BEGIN
+   DELETE FROM A_Person WHERE A_Person.id = _deleteFK;
+END$$
+CREATE PROCEDURE sumConstraint25A_DriverDelete(_deleteFK INTEGER) BEGIN
+   DELETE FROM A_Person WHERE A_Person.id = _deleteFK;
+END$$
+CREATE PROCEDURE sumConstraint25A_TravellerDelete(_deleteFK INTEGER) BEGIN
+   DELETE FROM A_Person WHERE A_Person.id = _deleteFK;
+END$$
+CREATE PROCEDURE sumConstraint25A_PedestrianDelete(_deleteFK INTEGER) BEGIN
+   DELETE FROM A_Person WHERE A_Person.id = _deleteFK;
+END$$
+DELIMITER ;
+DELIMITER $$
+CREATE PROCEDURE productConstraint26Delete(id INTEGER) BEGIN
+   DELETE A_Latitude FROM A_pair_lat_long_ JOIN A_Latitude ON A_pair_lat_long_.lat = A_Latitude.id
+           WHERE A_pair_lat_long_.id = id;
+   DELETE A_Longitude FROM A_pair_lat_long_ JOIN A_Longitude ON A_pair_lat_long_.`long` = A_Longitude.id
+           WHERE A_pair_lat_long_.id = id;
+END$$
+CREATE PROCEDURE productConstraint26InsertA_Latitude(id INTEGER) BEGIN
+ DECLARE _lastId INTEGER;
+       IF (SELECT 1 FROM A_Longitude LIMIT 1) = 1 THEN
+           SET _lastId = id;
+               INSERT INTO A_pair_lat_long_ (lat, `long`) SELECT A_Latitude.id, A_Longitude.id FROM A_Latitude CROSS JOIN A_Longitude WHERE A_Latitude.id = _lastId;
+   END IF;
+END$$
+CREATE PROCEDURE productConstraint26InsertA_Longitude(id INTEGER) BEGIN
+ DECLARE _lastId INTEGER;
+       IF (SELECT 1 FROM A_Latitude LIMIT 1) = 1 THEN
+           SET _lastId = id;
+               INSERT INTO A_pair_lat_long_ (lat, `long`) SELECT A_Latitude.id, A_Longitude.id FROM A_Latitude CROSS JOIN A_Longitude WHERE A_Longitude.id = _lastId;
+   END IF;
+END$$
+DELIMITER ;
+DELIMITER $$
+CREATE PROCEDURE constraint_failure(_message VARCHAR(255)) BEGIN
+   -- This update is going to fail: this hack is needed because MySQL
+   -- lacks the ability to do an (SQL-standard) SIGNAL from a procedure.
+   SET @sql = CONCAT('UPDATE `', _message, '` SET fail=1');
+   PREPARE constraint_fail_statement_handle FROM @sql;
+   EXECUTE contraint_fail_statement_handle;
+   DEALLOCATE PREPARE contraint_fail_statement_handle;
+END$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER no_Fare_aiTrig AFTER INSERT ON no_Fare FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL pullbackConstraint1Insertno_Fare(NEW.id);
+	END IF;
+$$
+CREATE TRIGGER no_Fare_bdTrig BEFORE DELETE ON no_Fare FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL pullbackConstraint1Deleteno_Fare(OLD.id);
+	END IF;
+$$
+CREATE TRIGGER a_float_value_0_aiTrig AFTER INSERT ON a_float_value_0 FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL pullbackConstraint1Inserta_float_value_0(NEW.id);
+	END IF;
+$$
+CREATE TRIGGER a_Fare_Fs_aiTrig AFTER INSERT ON a_Fare_Fs FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL pullbackConstraint1Inserta_Fare_Fs(NEW.id);
+	END IF;
+$$
+CREATE TRIGGER a_current_sub_journey_biTrig BEFORE INSERT ON a_current_sub_journey FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		BEGIN
+			CALL commutativeDiagram2(NEW.follows, NEW.hasA_6);
+			INSERT INTO A_SubJourney () VALUES ();
+			SET NEW.isA_2 = LAST_INSERT_ID();
+		END;
+	END IF;
+$$
+CREATE TRIGGER a_current_sub_journey_adTrig AFTER DELETE ON a_current_sub_journey FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL sumConstraint8a_current_sub_journeyDelete(OLD.isA_2);
+	END IF;
+$$
+CREATE TRIGGER a_successor_sub_journey_biTrig BEFORE INSERT ON a_successor_sub_journey FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		BEGIN
+			CALL commutativeDiagram3(NEW.follows1, NEW.hasA_8);
+			INSERT INTO A_SubJourney () VALUES ();
+			SET NEW.isA_3 = LAST_INSERT_ID();
+		END;
+	END IF;
+$$
+CREATE TRIGGER a_successor_sub_journey_adTrig AFTER DELETE ON a_successor_sub_journey FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL sumConstraint8a_successor_sub_journeyDelete(OLD.isA_3);
+	END IF;
+$$
+CREATE TRIGGER an_Origin_Oc_biTrig BEFORE INSERT ON an_Origin_Oc FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL commutativeDiagram4(NEW.isSameAs, NEW.isA_16);
+	END IF;
+$$
+CREATE TRIGGER an_origin_Os_biTrig BEFORE INSERT ON an_origin_Os FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL commutativeDiagram5(NEW.isSameAs_1, NEW.isA_18);
+	END IF;
+$$
+CREATE TRIGGER a_destination_Dl_biTrig BEFORE INSERT ON a_destination_Dl FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL commutativeDiagram6(NEW.isSameAs_4, NEW.isA_23);
+	END IF;
+$$
+CREATE TRIGGER an_Origin_Of_biTrig BEFORE INSERT ON an_Origin_Of FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL commutativeDiagram7(NEW.isSameAs_3, NEW.isA_21);
+	END IF;
+$$
+CREATE TRIGGER a_predecessor_sub_journey_adTrig AFTER DELETE ON a_predecessor_sub_journey FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL sumConstraint8a_predecessor_sub_journeyDelete(OLD.isA_1);
+	END IF;
+$$
+CREATE TRIGGER a_predecessor_sub_journey_biTrig BEFORE INSERT ON a_predecessor_sub_journey FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		BEGIN
+			INSERT INTO A_SubJourney () VALUES ();
+			SET NEW.isA_1 = LAST_INSERT_ID();
+		END;
+	END IF;
+$$
+CREATE TRIGGER A_Pedestrian_Mode_adTrig AFTER DELETE ON A_Pedestrian_Mode FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL sumConstraint9A_Pedestrian_ModeDelete(OLD.isA_4);
+	END IF;
+$$
+CREATE TRIGGER A_Pedestrian_Mode_biTrig BEFORE INSERT ON A_Pedestrian_Mode FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		BEGIN
+			INSERT INTO A_Mode () VALUES ();
+			SET NEW.isA_4 = LAST_INSERT_ID();
+		END;
+	END IF;
+$$
+CREATE TRIGGER A_Metro_Mode_adTrig AFTER DELETE ON A_Metro_Mode FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL sumConstraint9A_Metro_ModeDelete(OLD.isA_5);
+	END IF;
+$$
+CREATE TRIGGER A_Metro_Mode_biTrig BEFORE INSERT ON A_Metro_Mode FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		BEGIN
+			INSERT INTO A_Mode () VALUES ();
+			SET NEW.isA_5 = LAST_INSERT_ID();
+		END;
+	END IF;
+$$
+CREATE TRIGGER A_Vehicular_Mode_adTrig AFTER DELETE ON A_Vehicular_Mode FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL sumConstraint9A_Vehicular_ModeDelete(OLD.isA_6);
+	END IF;
+$$
+CREATE TRIGGER A_Vehicular_Mode_biTrig BEFORE INSERT ON A_Vehicular_Mode FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		BEGIN
+			INSERT INTO A_Mode () VALUES ();
+			SET NEW.isA_6 = LAST_INSERT_ID();
+		END;
+	END IF;
+$$
+CREATE TRIGGER a_Lorry_adTrig AFTER DELETE ON a_Lorry FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL sumConstraint10a_LorryDelete(OLD.isA_51);
+	END IF;
+$$
+CREATE TRIGGER a_Lorry_biTrig BEFORE INSERT ON a_Lorry FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		BEGIN
+			INSERT INTO an_8_Wheeler () VALUES ();
+			SET NEW.isA_51 = LAST_INSERT_ID();
+		END;
+	END IF;
+$$
+CREATE TRIGGER a_truck_adTrig AFTER DELETE ON a_truck FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL sumConstraint10a_truckDelete(OLD.isA_52);
+	END IF;
+$$
+CREATE TRIGGER a_truck_biTrig BEFORE INSERT ON a_truck FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		BEGIN
+			INSERT INTO an_8_Wheeler () VALUES ();
+			SET NEW.isA_52 = LAST_INSERT_ID();
+		END;
+	END IF;
+$$
+CREATE TRIGGER A_Public_Bus_adTrig AFTER DELETE ON A_Public_Bus FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL sumConstraint11A_Public_BusDelete(OLD.isA_49);
+	END IF;
+$$
+CREATE TRIGGER A_Public_Bus_biTrig BEFORE INSERT ON A_Public_Bus FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		BEGIN
+			INSERT INTO a_Bus () VALUES ();
+			SET NEW.isA_49 = LAST_INSERT_ID();
+		END;
+	END IF;
+$$
+CREATE TRIGGER a_private_bus_adTrig AFTER DELETE ON a_private_bus FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL sumConstraint11a_private_busDelete(OLD.isA_50);
+	END IF;
+$$
+CREATE TRIGGER a_private_bus_biTrig BEFORE INSERT ON a_private_bus FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		BEGIN
+			INSERT INTO a_Bus () VALUES ();
+			SET NEW.isA_50 = LAST_INSERT_ID();
+		END;
+	END IF;
+$$
+CREATE TRIGGER a_carriage_adTrig AFTER DELETE ON a_carriage FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL sumConstraint12a_carriageDelete(OLD.isA_44);
+	END IF;
+$$
+CREATE TRIGGER a_carriage_biTrig BEFORE INSERT ON a_carriage FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		BEGIN
+			INSERT INTO a_4_Wheeler () VALUES ();
+			SET NEW.isA_44 = LAST_INSERT_ID();
+		END;
+	END IF;
+$$
+CREATE TRIGGER a_van_adTrig AFTER DELETE ON a_van FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL sumConstraint12a_vanDelete(OLD.isA_43);
+	END IF;
+$$
+CREATE TRIGGER a_van_biTrig BEFORE INSERT ON a_van FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		BEGIN
+			INSERT INTO a_4_Wheeler () VALUES ();
+			SET NEW.isA_43 = LAST_INSERT_ID();
+		END;
+	END IF;
+$$
+CREATE TRIGGER a_cart_adTrig AFTER DELETE ON a_cart FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL sumConstraint12a_cartDelete(OLD.isA_42);
+	END IF;
+$$
+CREATE TRIGGER a_cart_biTrig BEFORE INSERT ON a_cart FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		BEGIN
+			INSERT INTO a_4_Wheeler () VALUES ();
+			SET NEW.isA_42 = LAST_INSERT_ID();
+		END;
+	END IF;
+$$
+CREATE TRIGGER a_car_adTrig AFTER DELETE ON a_car FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL sumConstraint12a_carDelete(OLD.isA_41);
+	END IF;
+$$
+CREATE TRIGGER a_car_biTrig BEFORE INSERT ON a_car FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		BEGIN
+			INSERT INTO a_4_Wheeler () VALUES ();
+			SET NEW.isA_41 = LAST_INSERT_ID();
+		END;
+	END IF;
+$$
+CREATE TRIGGER a_cab_adTrig AFTER DELETE ON a_cab FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL sumConstraint13a_cabDelete(OLD.isA_45);
+	END IF;
+$$
+CREATE TRIGGER a_cab_biTrig BEFORE INSERT ON a_cab FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		BEGIN
+			INSERT INTO a_car () VALUES ();
+			SET NEW.isA_45 = LAST_INSERT_ID();
+		END;
+	END IF;
+$$
+CREATE TRIGGER a_personal_car_adTrig AFTER DELETE ON a_personal_car FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL sumConstraint13a_personal_carDelete(OLD.isA_46);
+	END IF;
+$$
+CREATE TRIGGER a_personal_car_biTrig BEFORE INSERT ON a_personal_car FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		BEGIN
+			INSERT INTO a_car () VALUES ();
+			SET NEW.isA_46 = LAST_INSERT_ID();
+		END;
+	END IF;
+$$
+CREATE TRIGGER a_rental_car_adTrig AFTER DELETE ON a_rental_car FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL sumConstraint13a_rental_carDelete(OLD.isA_47);
+	END IF;
+$$
+CREATE TRIGGER a_rental_car_biTrig BEFORE INSERT ON a_rental_car FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		BEGIN
+			INSERT INTO a_car () VALUES ();
+			SET NEW.isA_47 = LAST_INSERT_ID();
+		END;
+	END IF;
+$$
+CREATE TRIGGER a_Tempo_adTrig AFTER DELETE ON a_Tempo FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL sumConstraint14a_TempoDelete(OLD.isA_38);
+	END IF;
+$$
+CREATE TRIGGER a_Tempo_biTrig BEFORE INSERT ON a_Tempo FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		BEGIN
+			INSERT INTO a_3_Wheeler () VALUES ();
+			SET NEW.isA_38 = LAST_INSERT_ID();
+		END;
+	END IF;
+$$
+CREATE TRIGGER an_e_rickshaw_adTrig AFTER DELETE ON an_e_rickshaw FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL sumConstraint14an_e_rickshawDelete(OLD.isA_40);
+	END IF;
+$$
+CREATE TRIGGER an_e_rickshaw_biTrig BEFORE INSERT ON an_e_rickshaw FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		BEGIN
+			INSERT INTO a_3_Wheeler () VALUES ();
+			SET NEW.isA_40 = LAST_INSERT_ID();
+		END;
+	END IF;
+$$
+CREATE TRIGGER an_auto_rickshaw_rickshaw_adTrig AFTER DELETE ON an_auto_rickshaw_rickshaw FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL sumConstraint14an_auto_rickshaw_rickshawDelete(OLD.isA_39);
+	END IF;
+$$
+CREATE TRIGGER an_auto_rickshaw_rickshaw_biTrig BEFORE INSERT ON an_auto_rickshaw_rickshaw FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		BEGIN
+			INSERT INTO a_3_Wheeler () VALUES ();
+			SET NEW.isA_39 = LAST_INSERT_ID();
+		END;
+	END IF;
+$$
+CREATE TRIGGER a_Cycle_Bicycle_adTrig AFTER DELETE ON a_Cycle_Bicycle FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL sumConstraint15a_Cycle_BicycleDelete(OLD.isA_34);
+	END IF;
+$$
+CREATE TRIGGER a_Cycle_Bicycle_biTrig BEFORE INSERT ON a_Cycle_Bicycle FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		BEGIN
+			INSERT INTO a_2_Wheeler () VALUES ();
+			SET NEW.isA_34 = LAST_INSERT_ID();
+		END;
+	END IF;
+$$
+CREATE TRIGGER a_Bike_adTrig AFTER DELETE ON a_Bike FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL sumConstraint15a_BikeDelete(OLD.isA_35);
+	END IF;
+$$
+CREATE TRIGGER a_Bike_biTrig BEFORE INSERT ON a_Bike FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		BEGIN
+			INSERT INTO a_2_Wheeler () VALUES ();
+			SET NEW.isA_35 = LAST_INSERT_ID();
+		END;
+	END IF;
+$$
+CREATE TRIGGER a_Motorcycle_Motorbike_adTrig AFTER DELETE ON a_Motorcycle_Motorbike FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL sumConstraint15a_Motorcycle_MotorbikeDelete(OLD.isA_36);
+	END IF;
+$$
+CREATE TRIGGER a_Motorcycle_Motorbike_biTrig BEFORE INSERT ON a_Motorcycle_Motorbike FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		BEGIN
+			INSERT INTO a_2_Wheeler () VALUES ();
+			SET NEW.isA_36 = LAST_INSERT_ID();
+		END;
+	END IF;
+$$
+CREATE TRIGGER a_Scooter_adTrig AFTER DELETE ON a_Scooter FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL sumConstraint15a_ScooterDelete(OLD.isA_37);
+	END IF;
+$$
+CREATE TRIGGER a_Scooter_biTrig BEFORE INSERT ON a_Scooter FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		BEGIN
+			INSERT INTO a_2_Wheeler () VALUES ();
+			SET NEW.isA_37 = LAST_INSERT_ID();
+		END;
+	END IF;
+$$
+CREATE TRIGGER A_set_V_R__bdTrig BEFORE DELETE ON A_set_V_R_ FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL productConstraint16Delete(OLD.id);
+	END IF;
+$$
+CREATE TRIGGER A_Road_aiTrig AFTER INSERT ON A_Road FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL productConstraint16InsertA_Road(NEW.id);
+	END IF;
+$$
+CREATE TRIGGER A_Vehicle_aiTrig AFTER INSERT ON A_Vehicle FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL productConstraint16InsertA_Vehicle(NEW.id);
+	END IF;
+$$
+CREATE TRIGGER A_set_Tr_T__bdTrig BEFORE DELETE ON A_set_Tr_T_ FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL productConstraint17Delete(OLD.id);
+	END IF;
+$$
+CREATE TRIGGER A_Track_aiTrig AFTER INSERT ON A_Track FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL productConstraint17InsertA_Track(NEW.id);
+	END IF;
+$$
+CREATE TRIGGER A_Train_aiTrig AFTER INSERT ON A_Train FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL productConstraint17InsertA_Train(NEW.id);
+	END IF;
+$$
+CREATE TRIGGER A_Train_adTrig AFTER DELETE ON A_Train FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL sumConstraint24A_TrainDelete(OLD.isA_63);
+	END IF;
+$$
+CREATE TRIGGER A_Train_biTrig BEFORE INSERT ON A_Train FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		BEGIN
+			INSERT INTO A_Vehicle () VALUES ();
+			SET NEW.isA_63 = LAST_INSERT_ID();
+		END;
+	END IF;
+$$
+CREATE TRIGGER A_Set_S_I1_In_D__bdTrig BEFORE DELETE ON A_Set_S_I1_In_D_ FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL productConstraint18Delete(OLD.id);
+	END IF;
+$$
+CREATE TRIGGER a_Source_aiTrig AFTER INSERT ON a_Source FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL productConstraint18Inserta_Source(NEW.id);
+	END IF;
+$$
+CREATE TRIGGER a_Source_adTrig AFTER DELETE ON a_Source FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL sumConstraint19a_SourceDelete(OLD.isA_53);
+	END IF;
+$$
+CREATE TRIGGER a_Source_biTrig BEFORE INSERT ON a_Source FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		BEGIN
+			INSERT INTO A_Terminal_Stop () VALUES ();
+			SET NEW.isA_53 = LAST_INSERT_ID();
+		END;
+	END IF;
+$$
+CREATE TRIGGER An_Intermediary_Stop_aiTrig AFTER INSERT ON An_Intermediary_Stop FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL productConstraint18InsertAn_Intermediary_Stop(NEW.id);
+	END IF;
+$$
+CREATE TRIGGER A_Destination_aiTrig AFTER INSERT ON A_Destination FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL productConstraint18InsertA_Destination(NEW.id);
+	END IF;
+$$
+CREATE TRIGGER A_Destination_adTrig AFTER DELETE ON A_Destination FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL sumConstraint19A_DestinationDelete(OLD.isA_54);
+	END IF;
+$$
+CREATE TRIGGER A_Destination_biTrig BEFORE INSERT ON A_Destination FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		BEGIN
+			INSERT INTO A_Terminal_Stop () VALUES ();
+			SET NEW.isA_54 = LAST_INSERT_ID();
+		END;
+	END IF;
+$$
+CREATE TRIGGER An_Arrival_Time_adTrig AFTER DELETE ON An_Arrival_Time FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL sumConstraint20An_Arrival_TimeDelete(OLD.isA_55);
+	END IF;
+$$
+CREATE TRIGGER An_Arrival_Time_biTrig BEFORE INSERT ON An_Arrival_Time FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		BEGIN
+			INSERT INTO A_Timestamp () VALUES ();
+			SET NEW.isA_55 = LAST_INSERT_ID();
+		END;
+	END IF;
+$$
+CREATE TRIGGER An_Arrival_Time_aiTrig AFTER INSERT ON An_Arrival_Time FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL productConstraint21InsertAn_Arrival_Time(NEW.id);
+	END IF;
+$$
+CREATE TRIGGER A_Departure_Time_adTrig AFTER DELETE ON A_Departure_Time FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL sumConstraint20A_Departure_TimeDelete(OLD.isA_56);
+	END IF;
+$$
+CREATE TRIGGER A_Departure_Time_biTrig BEFORE INSERT ON A_Departure_Time FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		BEGIN
+			INSERT INTO A_Timestamp () VALUES ();
+			SET NEW.isA_56 = LAST_INSERT_ID();
+		END;
+	END IF;
+$$
+CREATE TRIGGER A_Departure_Time_aiTrig AFTER INSERT ON A_Departure_Time FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL productConstraint21InsertA_Departure_Time(NEW.id);
+	END IF;
+$$
+CREATE TRIGGER A_Set_of_tuples_Si_Ai_Di__bdTrig BEFORE DELETE ON A_Set_of_tuples_Si_Ai_Di_ FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL productConstraint21Delete(OLD.id);
+	END IF;
+$$
+CREATE TRIGGER a_Stop_aiTrig AFTER INSERT ON a_Stop FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL productConstraint21Inserta_Stop(NEW.id);
+	END IF;
+$$
+CREATE TRIGGER A_Route_biTrig BEFORE INSERT ON A_Route FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		BEGIN
+			CALL commutativeDiagram22(NEW.hasA_17, NEW.hasA_29);
+			CALL commutativeDiagram23(NEW.hasA_17, NEW.hasA_30);
+		END;
+	END IF;
+$$
+CREATE TRIGGER a_2_Wheeler_adTrig AFTER DELETE ON a_2_Wheeler FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL sumConstraint24a_2_WheelerDelete(OLD.isA_29);
+	END IF;
+$$
+CREATE TRIGGER a_2_Wheeler_biTrig BEFORE INSERT ON a_2_Wheeler FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		BEGIN
+			INSERT INTO A_Vehicle () VALUES ();
+			SET NEW.isA_29 = LAST_INSERT_ID();
+		END;
+	END IF;
+$$
+CREATE TRIGGER a_3_Wheeler_adTrig AFTER DELETE ON a_3_Wheeler FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL sumConstraint24a_3_WheelerDelete(OLD.isA_30);
+	END IF;
+$$
+CREATE TRIGGER a_3_Wheeler_biTrig BEFORE INSERT ON a_3_Wheeler FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		BEGIN
+			INSERT INTO A_Vehicle () VALUES ();
+			SET NEW.isA_30 = LAST_INSERT_ID();
+		END;
+	END IF;
+$$
+CREATE TRIGGER a_4_Wheeler_adTrig AFTER DELETE ON a_4_Wheeler FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL sumConstraint24a_4_WheelerDelete(OLD.isA_31);
+	END IF;
+$$
+CREATE TRIGGER a_4_Wheeler_biTrig BEFORE INSERT ON a_4_Wheeler FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		BEGIN
+			INSERT INTO A_Vehicle () VALUES ();
+			SET NEW.isA_31 = LAST_INSERT_ID();
+		END;
+	END IF;
+$$
+CREATE TRIGGER a_6_Wheeler_adTrig AFTER DELETE ON a_6_Wheeler FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL sumConstraint24a_6_WheelerDelete(OLD.isA_32);
+	END IF;
+$$
+CREATE TRIGGER a_6_Wheeler_biTrig BEFORE INSERT ON a_6_Wheeler FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		BEGIN
+			INSERT INTO A_Vehicle () VALUES ();
+			SET NEW.isA_32 = LAST_INSERT_ID();
+		END;
+	END IF;
+$$
+CREATE TRIGGER an_8_Wheeler_adTrig AFTER DELETE ON an_8_Wheeler FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL sumConstraint24an_8_WheelerDelete(OLD.isA_33);
+	END IF;
+$$
+CREATE TRIGGER an_8_Wheeler_biTrig BEFORE INSERT ON an_8_Wheeler FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		BEGIN
+			INSERT INTO A_Vehicle () VALUES ();
+			SET NEW.isA_33 = LAST_INSERT_ID();
+		END;
+	END IF;
+$$
+CREATE TRIGGER A_Conductor_adTrig AFTER DELETE ON A_Conductor FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL sumConstraint25A_ConductorDelete(OLD.isA_60);
+	END IF;
+$$
+CREATE TRIGGER A_Conductor_biTrig BEFORE INSERT ON A_Conductor FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		BEGIN
+			INSERT INTO A_Person () VALUES ();
+			SET NEW.isA_60 = LAST_INSERT_ID();
+		END;
+	END IF;
+$$
+CREATE TRIGGER A_Passeneger_adTrig AFTER DELETE ON A_Passeneger FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL sumConstraint25A_PassenegerDelete(OLD.isA_61);
+	END IF;
+$$
+CREATE TRIGGER A_Passeneger_biTrig BEFORE INSERT ON A_Passeneger FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		BEGIN
+			INSERT INTO A_Person () VALUES ();
+			SET NEW.isA_61 = LAST_INSERT_ID();
+		END;
+	END IF;
+$$
+CREATE TRIGGER A_Driver_adTrig AFTER DELETE ON A_Driver FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL sumConstraint25A_DriverDelete(OLD.isA_59);
+	END IF;
+$$
+CREATE TRIGGER A_Driver_biTrig BEFORE INSERT ON A_Driver FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		BEGIN
+			INSERT INTO A_Person () VALUES ();
+			SET NEW.isA_59 = LAST_INSERT_ID();
+		END;
+	END IF;
+$$
+CREATE TRIGGER A_Traveller_adTrig AFTER DELETE ON A_Traveller FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL sumConstraint25A_TravellerDelete(OLD.isA_62);
+	END IF;
+$$
+CREATE TRIGGER A_Traveller_biTrig BEFORE INSERT ON A_Traveller FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		BEGIN
+			INSERT INTO A_Person () VALUES ();
+			SET NEW.isA_62 = LAST_INSERT_ID();
+		END;
+	END IF;
+$$
+CREATE TRIGGER A_Pedestrian_adTrig AFTER DELETE ON A_Pedestrian FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL sumConstraint25A_PedestrianDelete(OLD.isA_64);
+	END IF;
+$$
+CREATE TRIGGER A_Pedestrian_biTrig BEFORE INSERT ON A_Pedestrian FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		BEGIN
+			INSERT INTO A_Person () VALUES ();
+			SET NEW.isA_64 = LAST_INSERT_ID();
+		END;
+	END IF;
+$$
+CREATE TRIGGER A_pair_lat_long__bdTrig BEFORE DELETE ON A_pair_lat_long_ FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL productConstraint26Delete(OLD.id);
+	END IF;
+$$
+CREATE TRIGGER A_Latitude_aiTrig AFTER INSERT ON A_Latitude FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL productConstraint26InsertA_Latitude(NEW.id);
+	END IF;
+$$
+CREATE TRIGGER A_Longitude_aiTrig AFTER INSERT ON A_Longitude FOR EACH ROW
+	IF (@DISABLE_TRIGGER IS NULL) THEN 
+		CALL productConstraint26InsertA_Longitude(NEW.id);
+	END IF;
+$$
+DELIMITER ;
