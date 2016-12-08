@@ -1,6 +1,7 @@
 # olog-project
 
 Repository for scraper scripts and text extracted from news articles.
+
 ---
 
 - The file `news_scraped_text.txt` contains the extracted data. 
